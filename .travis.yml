@@ -9,17 +9,17 @@ script:
   - docker run -e CI=true seriousbob/client-test npm run test
 
 after_success:
-  - docker build -t seriousbob/multi-client -f ./client
-  - docker build -t seriousbob/multi-nginx -f ./nginx
-  - docker build -t seriousbob/multi-server -f ./server
-  - docker build -t seriousbob/multi-worker -f ./worker
+  - docker build -t seriousbob/multi-client:latest -f ./client
+  - docker build -t seriousbob/multi-nginx:latest -f ./nginx
+  - docker build -t seriousbob/multi-server:latest -f ./server
+  - docker build -t seriousbob/multi-worker:latest -f ./worker
   
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-  - docker push seriousbob/multi-client
-  - docker push seriousbob/multi-nginx
-  - docker push seriousbob/multi-server
-  - docker push seriousbob/multi-worker
+  - docker push seriousbob/multi-client:latest
+  - docker push seriousbob/multi-nginx:latest
+  - docker push seriousbob/multi-server:latest
+  - docker push seriousbob/multi-worker:latest
 # deploy:
 #   provider: gae
 #   keyfile: ./my-project-a0e22bb3527d.json.enc
