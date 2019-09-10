@@ -1,0 +1,5 @@
+deploy:
+  provider: gae
+  keyfile: ./my-project-a0e22bb3527d.json.enc
+  project:  pristine-atom-252001
+  on: master
