@@ -16,10 +16,10 @@ after_success:
   
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-  - docker push seriousbob/multi-client:latest
-  - docker push seriousbob/multi-nginx:latest
-  - docker push seriousbob/multi-server:latest
-  - docker push seriousbob/multi-worker:latest
+  - docker push docker.io/seriousbob/multi-client:latest
+  - docker push docker.io/seriousbob/multi-nginx:latest
+  - docker push docker.io/seriousbob/multi-server:latest
+  - docker push docker.io/seriousbob/multi-worker:latest
 # deploy:
 #   provider: gae
 #   keyfile: ./my-project-a0e22bb3527d.json.enc
