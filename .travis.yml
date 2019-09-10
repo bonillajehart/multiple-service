@@ -1,5 +1,27 @@
-deploy:
-  provider: gae
-  keyfile: ./my-project-a0e22bb3527d.json.enc
-  project:  pristine-atom-252001
-  on: master
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t seriousbob/client-test -f ./client/Dockerfile-dev ./client
+
+script:
+  - docker run -e CI=true seriousbob/client-test npm run test
+
+after_success:
+  - docker build -t seriousbob/multi-client -f ./client
+  - docker build -t seriousbob/multi-nginx -f ./nginx
+  - docker build -t seriousbob/multi-server -f ./server
+  - docker build -t seriousbob/multi-worker -f ./worker
+  
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push seriousbob/multi-client
+  - docker push seriousbob/multi-nginx
+  - docker push seriousbob/multi-server
+  - docker push seriousbob/multi-worker
+# deploy:
+#   provider: gae
+#   keyfile: ./my-project-a0e22bb3527d.json.enc
+#   project:  pristine-atom-252001
+#   on: master
